@@ -9,11 +9,24 @@ export default defineConfig(({ command }) => {
     define: {
       [command === 'serve' ? 'global' : '_global']: {},
     },
+
+    // ВАЖНО: имя твоего репозитория на GitHub!
+    base: '/goit-js-hw-12/',
+
+    // Твой проект работает из src/
     root: 'src',
+
     build: {
       sourcemap: true,
+
+      // ВАЖНО: билд идёт в docs/
+      outDir: '../docs',
+      emptyOutDir: true,
+
       rollupOptions: {
+        // автоматический поиск HTML-файлов
         input: glob.sync('./src/*.html'),
+
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
@@ -34,9 +47,8 @@ export default defineConfig(({ command }) => {
           },
         },
       },
-      outDir: '../dist',
-      emptyOutDir: true,
     },
+
     plugins: [
       injectHTML(),
       FullReload(['./src/**/**.html']),
