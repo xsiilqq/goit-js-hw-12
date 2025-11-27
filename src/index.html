@@ -7,34 +7,31 @@
     <title>Vanilla App Template</title>
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
-  <body>
-    <header class="header">
+<body>
+  <header class="header">
+    <div class="container">
+      <form class="form search-form">
+        <input type="text" name="searchQuery" class="search-input" placeholder="Search images..." autocomplete="off" />
+        <button type="submit" class="search-button">Search</button>
+      </form>
+    </div>
+  </header>
+
+  <main>
+    <section class="gallery-section">
       <div class="container">
-        <form class="search-form">
-          <input
-            type="text"
-            name="searchQuery"
-            class="search-input"
-            placeholder="Search images..."
-            autocomplete="off"
-          />
-          <button type="submit" class="search-button">Search</button>
-        </form>
+    <ul class="gallery"></ul>
+    
+    <button type="button" class="load-more is-hidden">Load more</button>
+    
+    <span class="loader"></span>
+    <p class="loading-text is-hidden">Loading images, please wait…</p>
+
       </div>
-    </header>
+    </section>
+  </main>
 
-    <main>
-      <section class="gallery-section">
-        <div class="container">
-          <ul class="gallery"></ul>
+  <script type="module" src="./main.js"></script>
+</body>
 
-          <button type="button" class="load-more is-hidden">Load more</button>
-
-          <p class="loading-text is-hidden">Loading images, please wait…</p>
-        </div>
-      </section>
-    </main>
-
-    <script type="module" src="./main.js"></script>
-  </body>
 </html>

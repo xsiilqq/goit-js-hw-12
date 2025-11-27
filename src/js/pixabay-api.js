@@ -9,7 +9,7 @@ const PER_PAGE = 15;
  * Запрос картинок по строке поиска
  * @param {string} query - поисковое слово
  * @param {number} page  - номер страницы
- * @returns {Promise<Object>} data из ответа API
+ * @returns {Promise<Object>} 
  */
 export async function getImagesByQuery(query, page = 1) {
   const response = await axios.get(BASE_URL, {

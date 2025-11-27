@@ -1,17 +1,21 @@
-// src/js/render-function.js
+// src/js/render-functions.js
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const galleryEl = document.querySelector('.gallery');
-const loaderText = document.querySelector('.loading-text');
-const loadMoreBtn = document.querySelector('.load-more');
+function getRefs() {
+  return {
+    galleryEl: document.querySelector('.gallery'),
+    loaderEl: document.querySelector('.loader'),
+    loadMoreBtn: document.querySelector('.load-more'),
+  };
+}
 
-const lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
+let lightbox = null;
 
 export function createGallery(images) {
+  const { galleryEl } = getRefs();
+  if (!galleryEl) return;
+
   const markup = images
     .map(
       ({
@@ -43,27 +47,47 @@ export function createGallery(images) {
     .join('');
 
   galleryEl.insertAdjacentHTML('beforeend', markup);
-  lightbox.refresh();
+
+  if (!lightbox) {
+    lightbox = new SimpleLightbox('.gallery a', {
+      captionsData: 'alt',
+      captionDelay: 250,
+    });
+  } else {
+    lightbox.refresh();
+  }
 }
 
 export function clearGallery() {
-  galleryEl.innerHTML = '';
+  const { galleryEl } = getRefs();
+  if (galleryEl) galleryEl.innerHTML = '';
 }
 
+// экран загрузки
 export function showLoader() {
-  loaderText.classList.remove('is-hidden');
-  loadMoreBtn.classList.add('is-hidden');
+  const { loaderEl, loadMoreBtn } = getRefs();
+  if (loadMoreBtn) loadMoreBtn.classList.add('is-hidden');
+  if (loaderEl) {
+    loaderEl.textContent = 'Loading images, please wait…';
+    loaderEl.classList.remove('is-hidden');
+  }
 }
 
 export function hideLoader() {
-  loaderText.classList.add('is-hidden');
-  loadMoreBtn.classList.remove('is-hidden');
-}
-
-export function hideLoadMoreButton() {
-  loadMoreBtn.classList.add('is-hidden');
+  const { loaderEl, loadMoreBtn } = getRefs();
+  if (loaderEl) {
+    loaderEl.textContent = '';
+    loaderEl.classList.add('is-hidden');
+  }
+  if (loadMoreBtn) loadMoreBtn.classList.remove('is-hidden');
 }
 
 export function showLoadMoreButton() {
-  loadMoreBtn.classList.remove('is-hidden');
+  const { loadMoreBtn } = getRefs();
+  if (loadMoreBtn) loadMoreBtn.classList.remove('is-hidden');
+}
+
+export function hideLoadMoreButton() {
+  const { loadMoreBtn } = getRefs();
+  if (loadMoreBtn) loadMoreBtn.classList.add('is-hidden');
 }
