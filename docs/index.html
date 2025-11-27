@@ -8,34 +8,32 @@
     <script type="module" crossorigin src="/goit-js-hw-12/index.js"></script>
     <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-DvfmeZXB.js">
     <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-DumFYO8Z.css">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-CMwmRAC4.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-nBscPWcM.css">
   </head>
-  <body>
-    <header class="header">
-      <div class="container">
+<body>
+  <header class="header">
+    <div class="container">
       <form class="form search-form">
-        <input type="text" 
-        name="searchQuery" 
-        class="search-input" 
-        placeholder="Search images..." 
-        autocomplete="off" />
+        <input type="text" name="searchQuery" class="search-input" placeholder="Search images..." autocomplete="off" />
         <button type="submit" class="search-button">Search</button>
       </form>
+    </div>
+  </header>
+
+  <main>
+    <section class="gallery-section">
+      <div class="container">
+    <ul class="gallery"></ul>
+    
+    <button type="button" class="load-more is-hidden">Load more</button>
+    
+    <span class="loader"></span>
+    <p class="loading-text is-hidden">Loading images, please wait…</p>
 
       </div>
-    </header>
+    </section>
+  </main>
 
-    <main>
-      <section class="gallery-section">
-        <div class="container">
-          <ul class="gallery"></ul>
+</body>
 
-          <button type="button" class="load-more is-hidden">Load more</button>
-
-          <p class="loading-text is-hidden">Loading images, please wait…</p>
-        </div>
-      </section>
-    </main>
-
-  </body>
 </html>
