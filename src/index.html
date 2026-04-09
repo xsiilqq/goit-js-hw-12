@@ -7,31 +7,36 @@
     <title>Vanilla App Template</title>
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
-<body>
-  <header class="header">
-    <div class="container">
-      <form class="form search-form">
-        <input type="text" name="searchQuery" class="search-input" placeholder="Search images..." autocomplete="off" />
-        <button type="submit" class="search-button">Search</button>
-      </form>
-    </div>
-  </header>
-
-  <main>
-    <section class="gallery-section">
+  <body>
+    <header class="header">
       <div class="container">
-    <ul class="gallery"></ul>
-    
-    <button type="button" class="load-more is-hidden">Load more</button>
-    
-    <span class="loader"></span>
-    <p class="loading-text is-hidden">Loading images, please wait…</p>
-
+        <form class="form search-form">
+          <input
+            type="text"
+            name="searchQuery"
+            class="search-input"
+            placeholder="Search images..."
+            autocomplete="off"
+          />
+          <button type="submit" class="search-button">Search</button>
+        </form>
       </div>
-    </section>
-  </main>
+    </header>
 
-  <script type="module" src="./main.js"></script>
-</body>
+    <main>
+      <section class="gallery-section">
+        <div class="container">
+          <ul class="gallery"></ul>
 
+          <button type="button" class="load-more is-hidden">Load more</button>
+
+          <div class="loader-wrapper">
+            <span class="loader is-hidden">Loading images, please wait…</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./main.js"></script>
+  </body>
 </html>

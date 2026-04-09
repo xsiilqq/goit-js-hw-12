@@ -10,8 +10,7 @@ import {
   hideLoader,
   showLoadMoreButton,
   hideLoadMoreButton,
-} from './js/render-functions.js';  
-
+} from './js/render-functions.js';
 
 const searchForm = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.load-more');
@@ -20,6 +19,8 @@ const galleryEl = document.querySelector('.gallery');
 let searchQuery = '';
 let page = 1;
 let totalHits = 0;
+// фактически загруженное количество картинок
+let loadedImages = 0;
 
 hideLoadMoreButton();
 
@@ -43,6 +44,9 @@ async function onSearchSubmit(event) {
 
   searchQuery = query;
   page = 1;
+  totalHits = 0;
+  loadedImages = 0;
+
   clearGallery();
   hideLoadMoreButton();
   showLoader();
@@ -54,6 +58,8 @@ async function onSearchSubmit(event) {
     totalHits = total ?? 0;
 
     if (!hits.length) {
+      // на случай, если до этого был другой поиск с кнопкой
+      hideLoadMoreButton();
       iziToast.info({
         title: 'Info',
         message:
@@ -64,6 +70,7 @@ async function onSearchSubmit(event) {
     }
 
     createGallery(hits);
+    loadedImages = hits.length;
 
     iziToast.success({
       title: 'Success',
@@ -71,7 +78,8 @@ async function onSearchSubmit(event) {
       position: 'topRight',
     });
 
-    if (totalHits > PER_PAGE) {
+    // показываем кнопку только если реально есть ещё, что грузить
+    if (loadedImages < totalHits) {
       showLoadMoreButton();
     } else {
       hideLoadMoreButton();
@@ -102,6 +110,7 @@ async function onLoadMoreClick() {
     const data = await getImagesByQuery(searchQuery, page);
     const { hits } = data;
 
+    // если с бэка пришёл пустой массив
     if (!hits.length) {
       hideLoadMoreButton();
       iziToast.info({
@@ -115,9 +124,10 @@ async function onLoadMoreClick() {
     createGallery(hits);
     smoothScroll();
 
-    const loadedImages = page * PER_PAGE;
+    loadedImages += hits.length;
 
-    if (loadedImages >= totalHits) {
+    // если всё, что было, уже подтянули
+    if (loadedImages >= totalHits || hits.length < PER_PAGE) {
       hideLoadMoreButton();
       iziToast.info({
         title: 'Info',

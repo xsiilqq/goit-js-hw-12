@@ -1,19 +1,16 @@
-// src/js/render-functions.js
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-function getRefs() {
-  return {
-    galleryEl: document.querySelector('.gallery'),
-    loaderEl: document.querySelector('.loader'),
-    loadMoreBtn: document.querySelector('.load-more'),
-  };
-}
+const galleryEl = document.querySelector('.gallery');
+const loaderEl = document.querySelector('.loader'); // <span class="loader">
+const loadMoreBtn = document.querySelector('.load-more');
 
-let lightbox = null;
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 export function createGallery(images) {
-  const { galleryEl } = getRefs();
   if (!galleryEl) return;
 
   const markup = images
@@ -47,47 +44,42 @@ export function createGallery(images) {
     .join('');
 
   galleryEl.insertAdjacentHTML('beforeend', markup);
-
-  if (!lightbox) {
-    lightbox = new SimpleLightbox('.gallery a', {
-      captionsData: 'alt',
-      captionDelay: 250,
-    });
-  } else {
-    lightbox.refresh();
-  }
+  lightbox.refresh();
 }
 
 export function clearGallery() {
-  const { galleryEl } = getRefs();
-  if (galleryEl) galleryEl.innerHTML = '';
+  if (!galleryEl) return;
+  galleryEl.innerHTML = '';
 }
 
-// экран загрузки
+// показываем текст, прячем кнопку
 export function showLoader() {
-  const { loaderEl, loadMoreBtn } = getRefs();
-  if (loadMoreBtn) loadMoreBtn.classList.add('is-hidden');
+  if (loadMoreBtn) {
+    loadMoreBtn.classList.add('is-hidden');
+  }
   if (loaderEl) {
-    loaderEl.textContent = 'Loading images, please wait…';
     loaderEl.classList.remove('is-hidden');
   }
 }
 
+// прячем текст, показываем кнопку
 export function hideLoader() {
-  const { loaderEl, loadMoreBtn } = getRefs();
   if (loaderEl) {
-    loaderEl.textContent = '';
     loaderEl.classList.add('is-hidden');
   }
-  if (loadMoreBtn) loadMoreBtn.classList.remove('is-hidden');
+  if (loadMoreBtn) {
+    loadMoreBtn.classList.remove('is-hidden');
+  }
 }
 
 export function showLoadMoreButton() {
-  const { loadMoreBtn } = getRefs();
-  if (loadMoreBtn) loadMoreBtn.classList.remove('is-hidden');
+  if (loadMoreBtn) {
+    loadMoreBtn.classList.remove('is-hidden');
+  }
 }
 
 export function hideLoadMoreButton() {
-  const { loadMoreBtn } = getRefs();
-  if (loadMoreBtn) loadMoreBtn.classList.add('is-hidden');
+  if (loadMoreBtn) {
+    loadMoreBtn.classList.add('is-hidden');
+  }
 }
